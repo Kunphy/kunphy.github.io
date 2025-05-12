@@ -1,0 +1,520 @@
+/* style_new.css */
+
+/* --- 变量定义 --- */
+:root {
+    --primary-color: #3498db; /* 主题蓝 */
+    --secondary-color: #2ecc71; /* 辅助绿 */
+    --text-color: #333;
+    --text-light: #777;
+    --background-color: #f9f9f9;
+    --card-background: #ffffff;
+    --border-color: #eee;
+    --header-background: #ffffff;
+    --footer-background: #2c3e50; /* 深蓝灰 */
+    --footer-text: #ecf0f1; /* 浅灰 */
+
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: Georgia, 'Times New Roman', Times, serif; /* 用于文章正文可能更好 */
+    --font-family-mono: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+
+    --container-width: 960px;
+    --border-radius: 4px;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 全局重置与基础样式 --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px; /* 基准字体大小 */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    /* color: darken(var(--primary-color), 10%); */ /* CSS darken is not standard */
+    filter: brightness(90%); /* Alternative for hover effect */
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+    font-weight: 600; /* 稍粗一点 */
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1em;
+}
+
+ul, ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em; /* 修正列表缩进 */
+}
+
+/* --- 布局容器 --- */
+.container {
+    max-width: var(--container-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1; /* 让主内容区填充剩余空间 */
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+/* --- 辅助类 --- */
+.text-center { text-align: center; }
+.text-light { color: var(--text-light); }
+
+/* --- Header --- */
+.site-header {
+    background-color: var(--header-background);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+    position: sticky; /* 固定导航栏 */
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-decoration: none;
+}
+.logo a:hover {
+    text-decoration: none;
+    filter: brightness(100%); /* 覆盖全局 a:hover */
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0; /* 覆盖基础样式 */
+    margin-bottom: 0; /* 覆盖基础样式 */
+}
+
+.main-navigation li {
+    margin-left: 25px;
+}
+
+.main-navigation a {
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: none;
+    padding-bottom: 5px; /* 为下划线留出空间 */
+    border-bottom: 2px solid transparent; /* 初始透明下划线 */
+    transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.main-navigation a:hover,
+.main-navigation a.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color); /* Hover/Active 时显示下划线 */
+    text-decoration: none; /* 覆盖全局 a:hover */
+}
+
+/* --- Mobile Navigation --- */
+.mobile-nav-toggle {
+    display: none; /* 默认隐藏 */
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 5px;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .main-navigation {
+        display: none; /* 在小屏幕上隐藏主导航 */
+        position: absolute;
+        top: 100%; /* 位于 header 下方 */
+        left: 0;
+        width: 100%;
+        background-color: var(--header-background);
+        box-shadow: var(--box-shadow);
+        padding: 15px 0;
+    }
+
+    .main-navigation.active {
+        display: block; /* 点击按钮时显示 */
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-navigation li {
+        margin: 10px 0;
+    }
+
+    .mobile-nav-toggle {
+        display: block; /* 在小屏幕上显示切换按钮 */
+    }
+    .mobile-nav-toggle.active {
+       color: var(--primary-color); /* 激活时变色 */
+    }
+}
+
+
+/* --- Footer --- */
+.site-footer {
+    background-color: var(--footer-background);
+    color: var(--footer-text);
+    padding: 30px 0;
+    margin-top: 40px; /* 与主内容保持距离 */
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.site-footer a {
+    color: var(--primary-color); /* 保持链接颜色 */
+}
+.site-footer a:hover {
+    color: var(--secondary-color); /* 页脚链接 hover 变色 */
+    filter: brightness(100%);
+}
+
+.footer-content p {
+    margin-bottom: 0.5em;
+}
+
+/* --- Post List & Items (Card Style) --- */
+.page-title { /* 首页 "最新文章" 标题 */
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 响应式卡片列 */
+    gap: 25px;
+    list-style: none;
+    padding-left: 0; /* 覆盖基础样式 */
+}
+
+.post-item {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden; /* 确保圆角生效 */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* 如果有特色图片，可以取消注释并调整 */
+/*
+.post-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+*/
+
+.post-header {
+    padding: 20px 20px 10px;
+}
+
+.post-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.3em;
+}
+
+.post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.post-meta time {
+    margin-right: 10px;
+}
+
+.post-excerpt {
+    padding: 0 20px 15px;
+    font-size: 0.95rem;
+    flex-grow: 1; /* 让摘要填充空间，使 "阅读全文" 按钮对齐 */
+}
+
+.post-excerpt p:last-child {
+    margin-bottom: 0;
+}
+
+.post-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* 将页脚推到底部 */
+}
+
+.read-more {
+    font-weight: bold;
+    text-decoration: none;
+}
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* --- Single Post Page --- */
+.single-post {
+    background-color: var(--card-background);
+    padding: 30px 40px; /* 内边距大一些 */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px; /* 与页脚的间距 */
+}
+
+.single-post-header {
+    margin-bottom: 30px;
+    text-align: center; /* 标题和元信息居中 */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.single-post-title {
+    font-size: 2.5rem; /* 更大的标题 */
+    color: var(--text-color);
+    margin-bottom: 0.3em;
+    line-height: 1.2;
+}
+
+.single-post-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.single-post-meta time {
+    margin-right: 15px;
+}
+/* 如果有作者、分类等，可以在这里添加样式 */
+
+.single-post-content {
+    font-size: 1.05rem; /* 正文稍大一点 */
+    line-height: 1.7; /* 更宽松的行高 */
+    color: var(--text-color);
+}
+
+.single-post-content h1,
+.single-post-content h2,
+.single-post-content h3,
+.single-post-content h4,
+.single-post-content h5,
+.single-post-content h6 {
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    color: var(--text-color); /* 确保标题颜色 */
+}
+
+.single-post-content h1 { font-size: 2rem; }
+.single-post-content h2 { font-size: 1.7rem; }
+.single-post-content h3 { font-size: 1.4rem; }
+.single-post-content h4 { font-size: 1.15rem; }
+
+
+.single-post-content p {
+    margin-bottom: 1.2em;
+}
+
+.single-post-content a {
+    color: var(--primary-color);
+    text-decoration: underline; /* 正文链接加下划线 */
+    text-decoration-thickness: 1px; /* 下划线细一点 */
+    text-underline-offset: 2px; /* 下划线与文字间距 */
+}
+.single-post-content a:hover {
+    color: darken(var(--primary-color), 15%);
+    filter: brightness(85%);
+}
+
+.single-post-content ul,
+.single-post-content ol {
+    margin-bottom: 1.2em;
+    padding-left: 2em; /* 列表缩进调整 */
+}
+
+.single-post-content li {
+    margin-bottom: 0.5em;
+}
+
+.single-post-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1.5em;
+    margin: 1.5em 0;
+    font-style: italic;
+    color: var(--text-light);
+}
+.single-post-content blockquote p {
+    margin-bottom: 0.5em;
+}
+
+.single-post-content pre {
+    background-color: #2d2d2d; /* 与旧主题一致的深色背景 */
+    color: #ccc;
+    padding: 1em;
+    margin: 1.5em 0;
+    border-radius: var(--border-radius);
+    overflow-x: auto; /* 处理长代码行 */
+    font-family: var(--font-family-mono);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.single-post-content code {
+    font-family: var(--font-family-mono);
+    background-color: #f0f0f0; /* 行内代码浅灰背景 */
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #c7254e; /* 类似 Bootstrap 的行内代码颜色 */
+}
+.single-post-content pre code { /* pre 内的 code 继承 pre 样式 */
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+.single-post-content img {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 图片加点阴影 */
+}
+
+.single-post-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    /* 可以添加分享按钮、标签等样式 */
+}
+
+/* --- Archive Page --- */
+.archive-list {
+    background-color: var(--card-background);
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.archive-year-group {
+    margin-bottom: 30px;
+}
+.archive-year-group:last-child {
+    margin-bottom: 0;
+}
+
+.archive-year {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block; /* 让边框包裹内容 */
+}
+
+.archive-month-group {
+    margin-bottom: 20px;
+    padding-left: 10px; /* 月份组稍微缩进 */
+}
+
+.archive-month {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.archive-post-list {
+    list-style: none;
+    padding-left: 15px; /* 文章列表再缩进 */
+}
+
+.archive-post-list li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.archive-post-title {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.archive-post-title:hover {
+    text-decoration: underline;
+    filter: brightness(90%);
+}
+
+.archive-post-date {
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-left: 5px;
+}
