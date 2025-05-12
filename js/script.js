@@ -64,14 +64,14 @@
 
       var box = $(html);
 
-      $('body').append(box);
+      $this.parent().append(box); // Append to parent instead of body
     }
 
-    $('.article-share-box.on').hide();
+    $('.article-share-box.on').removeClass('on'); // Hide other share boxes
 
     box.css({
-      top: offset.top + 25,
-      left: offset.left
+      top: $this.position().top + 25, // Position relative to parent
+      right: 5 // Position near the right edge
     }).addClass('on');
   }).on('click', '.article-share-box', function(e){
     e.stopPropagation();
