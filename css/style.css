@@ -691,6 +691,7 @@ a.article-title:hover {
   text-shadow: 0 1px #1e7293;
 }
 .article-footer {
+  position: relative;
   font-size: 0.85em;
   line-height: 1.6em;
   border-top: 1px solid #ddd;
