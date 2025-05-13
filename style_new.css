@@ -108,6 +108,87 @@ ul, ol {
 .text-center { text-align: center; }
 .text-light { color: var(--text-light); }
 
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); /* 初始渐变 */
+    background-size: 400% 400%; /* 放大背景以便动画 */
+    animation: gradientBG 15s ease infinite; /* 应用动画 */
+    color: #ffffff;
+    padding: 80px 0; /* 增加内边距 */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gradientBG { /* 定义渐变动画 */
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 移除了之前的 ::before 伪元素背景图案 */
+
+.hero-content {
+    position: relative; /* 确保内容在伪元素之上 */
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 轻微文字阴影 */
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 1.5em;
+    max-width: 600px; /* 副标题不要太宽 */
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+.hero-cta-button { /* 如果启用CTA按钮 */
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.hero-cta-button:hover {
+    background-color: darken(var(--secondary-color), 10%);
+    filter: brightness(110%); /* 覆盖全局 a:hover 的 filter */
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    .hero-section {
+        padding: 40px 0;
+    }
+}
+
 /* --- Header --- */
 .site-header {
     background-color: var(--header-background);
@@ -147,20 +228,40 @@ ul, ol {
     margin-left: 25px;
 }
 
+/* --- Enhanced Navigation Hover --- */
 .main-navigation a {
     color: var(--text-color);
     font-weight: 500;
     text-decoration: none;
-    padding-bottom: 5px; /* 为下划线留出空间 */
-    border-bottom: 2px solid transparent; /* 初始透明下划线 */
-    transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    padding-bottom: 5px;
+    position: relative; /* For pseudo-element underline */
+    /* border-bottom: 2px solid transparent; */ /* Remove direct border */
+    transition: color 0.2s ease-in-out;
+}
+
+.main-navigation a::after { /* Underline pseudo-element */
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0); /* Initially hidden */
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transform-origin: bottom center; /* Animation origin */
+    transition: transform 0.25s ease-out;
 }
 
 .main-navigation a:hover,
 .main-navigation a.active {
     color: var(--primary-color);
-    border-bottom-color: var(--primary-color); /* Hover/Active 时显示下划线 */
-    text-decoration: none; /* 覆盖全局 a:hover */
+    text-decoration: none;
+}
+
+.main-navigation a:hover::after,
+.main-navigation a.active::after {
+    transform: scaleX(1); /* Expand underline on hover/active */
+    transform-origin: bottom center;
 }
 
 /* --- Mobile Navigation --- */
@@ -247,18 +348,29 @@ ul, ol {
     padding-left: 0; /* 覆盖基础样式 */
 }
 
+/* --- Post Item Entry Animation --- */
 .post-item {
     background-color: var(--card-background);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    overflow: hidden; /* 确保圆角生效 */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.5s ease-out; /* Smoother transition & opacity */
+    
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(20px);
 }
 
+.post-item.is-visible { /* State when element is in viewport */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
 .post-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Keep existing hover */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
 }
 
@@ -518,3 +630,35 @@ ul, ol {
     font-size: 0.9em;
     margin-left: 5px;
 }
+
+/* --- Button Styles --- */
+.button-base, .read-more, .hero-cta-button { /* Base button style */
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: none; /* Remove default border for button elements */
+}
+
+.button-primary, .read-more { /* Primary button style (like read-more) */
+    background-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.button-primary:hover, .read-more:hover {
+    /* background-color: darken(var(--primary-color), 10%); */ /* Standard CSS doesn't have darken() */
+    filter: brightness(90%); /* Using filter as an alternative */
+    color: #ffffff; /* Ensure text color remains white on hover */
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* .hero-cta-button is already styled, but we can ensure consistency if needed */
+/* If .hero-cta-button needs to align with .button-primary, adjust its specific styles or use .button-primary class */

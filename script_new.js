@@ -26,4 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // - 文章分享功能
     // - 图片灯箱 (如果需要，可以考虑轻量级库或原生实现)
     // - 代码块高亮 (如果需要)
+
+    // 文章卡片进入动画
+    const postItems = document.querySelectorAll('.post-item');
+    if (postItems.length > 0) {
+        const observerOptions = {
+            root: null, // 相对于浏览器视口
+            rootMargin: '0px',
+            threshold: 0.1 // 元素可见10%时触发
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // 触发后停止观察，动画只播放一次
+                }
+            });
+        };
+
+        const intersectionObserver = new IntersectionObserver(observerCallback, observerOptions);
+        postItems.forEach(item => {
+            intersectionObserver.observe(item);
+        });
+    }
 });
