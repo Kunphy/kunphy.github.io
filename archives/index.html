@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文章归档 - Kunphy's Blog</title>
-    <link rel="stylesheet" href="/style_new.css"> <!-- 注意路径 -->
+    <link rel="stylesheet" href="../style_enhanced.css"> <!-- 修改为相对路径 -->
+    <meta name="description" content="Kunphy博客的文章归档 - 按时间分类整理的所有文章">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    <meta name="theme-color" content="#6d5dfc">
 </head>
 <body>
     <div class="page-container">
@@ -57,24 +60,6 @@
 
     </div> <!-- .page-container -->
 
-    <script src="/script_new.js"></script> <!-- 注意路径 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentYearSpan = document.getElementById('current-year');
-            if (currentYearSpan) {
-                currentYearSpan.textContent = new Date().getFullYear();
-            }
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const mainNav = document.querySelector('.main-navigation');
-            if (mobileNavToggle && mainNav) {
-                mobileNavToggle.addEventListener('click', () => {
-                    mainNav.classList.toggle('active');
-                    mobileNavToggle.classList.toggle('active');
-                    const isExpanded = mainNav.classList.contains('active');
-                    mobileNavToggle.setAttribute('aria-expanded', isExpanded);
-                });
-            }
-        });
-    </script>
+    <script src="../script_enhanced.js"></script> <!-- 修改为相对路径 -->
 </body>
 </html>

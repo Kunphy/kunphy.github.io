@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunphy's Blog - 首页</title> <!-- 更具描述性的标题 -->
-    <link rel="stylesheet" href="style_new.css">
-    <!-- 可以添加 favicon, SEO相关的meta标签等 -->
+    <link rel="stylesheet" href="style_enhanced.css">
+    <meta name="description" content="Kunphy的个人博客，分享学习和生活的点滴。">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    <meta name="theme-color" content="#6d5dfc">
 </head>
 <body>
     <div class="page-container">
@@ -13,12 +15,12 @@
         <header class="site-header">
             <div class="header-content container">
                 <div class="logo">
-                    <a href="/">Kunphy's Blog</a> <!-- 使用网站名称或Logo -->
+                    <a href="index.html">Kunphy's Blog</a> <!-- 使用网站名称或Logo -->
                 </div>
                 <nav class="main-navigation">
                     <ul>
-                        <li><a href="/" class="active">首页</a></li>
-                        <li><a href="/archives">归档</a></li>
+                        <li><a href="index.html" class="active">首页</a></li>
+                        <li><a href="archives/index.html">归档</a></li>
                         <!-- <li><a href="/about">关于</a></li> --> <!-- 可选：关于页面 -->
                     </ul>
                 </nav>
@@ -39,7 +41,7 @@
             <section class="post-list">
                 <article class="post-item">
                     <header class="post-header">
-                        <h2 class="post-title"><a href="/2020/05/11/No1/">No1</a></h2>
+                        <h2 class="post-title"><a href="2020/05/11/No1/index.html">No1</a></h2>
                         <p class="post-meta">
                             <span class="post-meta-icon">📅</span> <time datetime="2020-05-11T10:16:31.000Z">2020年05月11日</time>
                         </p>
@@ -48,12 +50,12 @@
                         <p>我的地址！<a href="https://kunphy.github.io/" target="_blank" rel="noopener">kunphy.github.io</a></p>
                     </div>
                     <footer class="post-footer">
-                        <a href="/2020/05/11/No1/" class="read-more">阅读全文 &rarr;</a>
+                        <a href="2020/05/11/No1/index.html" class="read-more">阅读全文 &rarr;</a>
                     </footer>
                 </article>
                 <article class="post-item">
                     <header class="post-header">
-                        <h2 class="post-title"><a href="/2020/05/10/hello-world/">Hello World</a></h2>
+                        <h2 class="post-title"><a href="2020/05/10/hello-world/index.html">Hello World</a></h2>
                         <p class="post-meta">
                             <span class="post-meta-icon">📅</span> <time datetime="2020-05-10T14:32:55.557Z">2020年05月10日</time>
                         </p>
@@ -62,7 +64,7 @@
                         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
                     </div>
                     <footer class="post-footer">
-                        <a href="/2020/05/10/hello-world/" class="read-more">阅读全文 &rarr;</a>
+                        <a href="2020/05/10/hello-world/index.html" class="read-more">阅读全文 &rarr;</a>
                     </footer>
                 </article>
             </section>
@@ -79,18 +81,6 @@
 
     </div> <!-- .page-container -->
 
-    <script src="script_new.js"></script>
-    <script>
-        // 简单的JS，用于更新年份和处理移动导航（后续移至 script_new.js）
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const mainNav = document.querySelector('.main-navigation');
-        if (mobileNavToggle && mainNav) {
-            mobileNavToggle.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
-                mobileNavToggle.classList.toggle('active');
-            });
-        }
-    </script>
+    <script src="script_enhanced.js"></script>
 </body>
 </html>
